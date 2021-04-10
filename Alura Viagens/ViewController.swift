@@ -7,13 +7,29 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource {
+    
+    @IBOutlet weak var tableViewViagens: UITableView!
+    let listaViagens: Array<String> = ["Rio de Janeiro", "Ceará", "Sao Paulo"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableViewViagens.reloadData()
         // Do any additional setup after loading the view.
     }
 
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return listaViagens.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let celula = UITableViewCell(style: .default, reuseIdentifier: nil)
+        
+        celula.textLabel?.text = listaViagens[indexPath.row]
+        
+        return celula
+    }
+    
 }
 
