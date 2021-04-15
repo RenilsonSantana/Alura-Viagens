@@ -9,12 +9,15 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    // MARK: - atributos
+    let listaViagens: Array<Viagem> = ViagemDAO().retornaTodasAsViagens()
+    
+    // MARK: - IBOutlets
     @IBOutlet weak var tableViewViagens: UITableView!
     @IBOutlet weak var viewHoteis: UIView!
     @IBOutlet weak var viewPacotes: UIView!
     
-    let listaViagens: Array<Viagem> = ViagemDAO().retornaTodasAsViagens()
-
+    // MARK: life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewViagens.dataSource = self
@@ -25,6 +28,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     }
 
+    // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return listaViagens.count
     }
@@ -33,18 +37,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let celula = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! TableViewCell
         
         let viagemAtual = listaViagens[indexPath.row]
-        
-        celula.labelTitulo.text = viagemAtual.titulo
-        celula.labelDias.text = "\(viagemAtual.quantidadeDeDias) dias"
-        celula.labelPreco.text = viagemAtual.preco
-        celula.imagemViagem.image = UIImage(named: viagemAtual.caminhoDaImagem)
-        
-        celula.imagemViagem.layer.cornerRadius = 10
-        celula.imagemViagem.layer.masksToBounds = true
+            
+        celula.configuraCelula(viagem: viagemAtual)
         
         return celula
     }
     
+    // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.phone ? 175 : 260
     }

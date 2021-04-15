@@ -8,11 +8,14 @@
 import Foundation
 
 class Viagem{
+    
+    // MARK: - atributos
     let titulo: String
     let quantidadeDeDias: Int
     let preco: String
     let caminhoDaImagem: String
     
+    // MARK: - Init
     init(titulo: String, quantidadeDeDias: Int, preco: String, caminhoDaImagem: String) {
         self.titulo = titulo
         self.quantidadeDeDias = quantidadeDeDias
